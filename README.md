@@ -86,7 +86,7 @@
 *CMD_TITLE:      db 'TEXT 1000', $00;*<br/>
 
 *ORG $1000*<br/>
-*TXT_TITLE:      db 'PWM TEST', $0A, $0D, $00*<br/>
+*TXT_TITLE:      db 'HELLO WORLD!!!', $0A, $0D, $00*<br/>
 
 Таким образом программы могут загружать файлы и выполнять иные операции.
 
