@@ -7,6 +7,7 @@ The operating system (OS) was developed for computers with the i8080 processor, 
 The system includes an interpreter and a template engine, supports script execution, emulates the I2C protocol in software through the i8255 parallel port (KR580VV55), allows viewing WBMP graphics up to 127×127 pixels, and supports working with files and directories.
 
 The CH376 file module is connected to the computer system bus according to the module pinout. The INT and RST pins do not need to be connected.
+In this repository you can find gerber files for the Adapter CH376 Adapter which can be purchased at JLCPCB or PCBWAY or every other PCB manufacturer.
 
 At startup, the OS detects whether the CH376 module and a storage medium are present. If the device is ready, the script `AUTOEXEC.SCP` will be loaded from the storage medium and executed. If the device is not ready or is absent, the script from ROM will be executed. In that case, disk operations will not be available.
 
