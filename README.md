@@ -1,125 +1,154 @@
-# Дисковая операционная система `МИР`
+Fork of the original project by Dmitry Ivanov https://hub.mos.ru/dni-fx/peace-dos
 
-Операционная система (ОС) разработана для ЭВМ с процессором i8080 (Радио-86РК, Северная Пальмира, Апогей, Микроша, Партнёр 01.01) и аналогичных: КР580ВМ80А, i8085, Z80 и другие. Помещается в ПЗУ объёмом 8 кб. Обеспечивает минимальный набор команд для работы с файловым интерфейсом CH376.<br>
+# MIR Disk Operating System
 
-Система имеет интерпретатор, шаблонизатор, поддерживает выполнение сценариев, программно эмулирует протокол I2C через параллельный порт i8255 (КР580ВВ55), позволяет просматривать графику формата WBMP в размере до 127х127 пикселей, поддерживает работу с файлами и каталогами.<br>
+The operating system (OS) was developed for computers with the i8080 processor, such as Radio-86RK, Severnaya Palmira, Apogey, Mikrosha, Partner 01.01, and similar systems: KR580VM80A, i8085, Z80, and others. It fits into an 8 KB ROM. It provides a minimal command set for working with the CH376 file interface.
 
-Файловый модуль CH376 подключается в системную шину ЭВМ согласно распиновки модуля. Выводы INT и RST подключать не нужно.<br>
+The system includes an interpreter and a template engine, supports script execution, emulates the I2C protocol in software through the i8255 parallel port (KR580VV55), allows viewing WBMP graphics up to 127×127 pixels, and supports working with files and directories.
 
-При запуске ОС определит наличие модуля CH376 и носителя информации в нём. Если устройство готово к работе, с носителя информации будет загружен и выполнен сценарий AUTOEXEC.SCP. Если устройство не готово к работе или отсутствует, будет выполнен сценарий из ПЗУ. В этом случае дисковые операции будут недоступны.
+The CH376 file module is connected to the computer system bus according to the module pinout. The INT and RST pins do not need to be connected.
 
-Операционная система полность написана на ассемблере в среде Прекрасный Ассемблер (Pretty Intel 8080 Assembler): https://svofski.github.io/pretty-8080-assembler/
+At startup, the OS detects whether the CH376 module and a storage medium are present. If the device is ready, the script `AUTOEXEC.SCP` will be loaded from the storage medium and executed. If the device is not ready or is absent, the script from ROM will be executed. In that case, disk operations will not be available.
 
-## Список команд:
+The operating system is written entirely in assembly language using Pretty Intel 8080 Assembler:
+https://svofski.github.io/pretty-8080-assembler/
 
-`CHKMEM` - проверка памяти<br/>
-`SYSINFO` - вывод таблицы системных настроек<br/>
+## Command list
 
-`CLS` - очистка экрана<br/>
-`FLUSH N` - скролл текста вверх на N строк<br/>
-`CARRIAGE YYXX` - установка каретки<br/>
-`TEXT ХХХХ` - печать строки с адреса ХХХХ<br/>
-`NL` - перевод каретки<br/>
-`XCG` - переключение знакогонератора<br/>
-`POINTER XXXX` - установка указателя на строку по адресу XXXX<br/>
+`CHKMEM` — memory test
+`SYSINFO` — display the system settings table
 
-`LEDON` - включить светодиод РУС/ЛАТ<br/>
-`LEDOFF` - выключить светодиод РУС/ЛАТ<br/>
+`CLS` — clear the screen
+`FLUSH N` — scroll text upward by N lines
+`CARRIAGE YYXX` — set the cursor position
+`TEXT XXXX` — print a string starting from address XXXX
+`NL` — carriage return / new line
+`XCG` — switch character generator
+`POINTER XXXX` — set the pointer to a string at address XXXX
 
-`BEEP NNMM` - звуковой сигнал, где NN - длительность, MM - тон<br/>
-`PEW NNMM` - звуковой сигнал, где NN - длительность, MM - тон<br/>
-`DELAY A` - задержка на A кадров<br/>
+`LEDON` — turn on the RUS/LAT LED
+`LEDOFF` — turn off the RUS/LAT LED
 
-`JUMP ХХХХ` - безусловный переход на адрес ХХХХ, ключ 'L' - режим совместимости<br/>
-`READ ХХХХ` - чтение байта из ячейки памяти ХХХХ и вывод на экран<br/>
-`WRITE XXXX AA BB CC ...` - запись массива данных в ОЗУ с адреса XXXX<br/>
-`IN XXXX YYYY ZZZZ` - чтение данных из порта в ОЗУ с адреса XXXX, адреса на порту с YYYY по ZZZZ<br/>
-`OUT XXXX YYYY ZZZZ` - вывод данных в порт из ОЗУ с адреса XXXX по YYYY на PB и PC выводится адрес начиная с ZZZZ<br/>
-`DUMP AAAA BBBB` - просмотр памяти с адреса AAAA по адрес BBBB<br/>
+`BEEP NNMM` — sound signal, where NN is duration and MM is tone
+`PEW NNMM` — sound signal, where NN is duration and MM is tone
+`DELAY A` — delay for A frames
 
-`/` - установка текущего пути
+`JUMP XXXX` — unconditional jump to address XXXX; key `L` enables compatibility mode
+`READ XXXX` — read a byte from memory cell XXXX and display it on the screen
+`WRITE XXXX AA BB CC ...` — write an array of data to RAM starting at address XXXX
+`IN XXXX YYYY ZZZZ` — read data from a port into RAM starting at address XXXX; port addresses from YYYY to ZZZZ
+`OUT XXXX YYYY ZZZZ` — output data from RAM to a port, from address XXXX to YYYY; the address starting from ZZZZ is output on PB and PC
+`DUMP AAAA BBBB` — view memory from address AAAA to address BBBB
 
-`CAT` - каталог файлов корневой директории<br/>
-`MCAT ABCDE` - создание каталога с именем ABCDE<br/>
-`ERASE ABCDE` - удаление файла или каталога каталога с именем ABCDE<br/>
-`HELP` - вызов файла справки (клавиша Ф1)<br/>
-`LOAD XXXX ABC*` - загрузка файла ABC* в ОЗУ с адреса XXXX<br/>
-`SAVE XXXX YYYY ABC*` - сохранение файла ABC* с адреса XXXX и длиной YYYY<br/>
-`CALL ABC*` - загрузка файла ABC* в ОЗУ и вызов, ключ 'L' - режим совместимости<br/>
-`VIEW ABC*` - загрузка текстового файла ABC* в ОЗУ и просмотр<br/>
-`SCP ABC*` - загрузка и интерпретация сценария ABC*<br/>
+`/` — set the current path
 
-`WBMP ABC*` - загрузка и отображение картинки с именем ABC*
+`CAT` — list files in the root directory
+`MCAT ABCDE` — create a directory named ABCDE
+`ERASE ABCDE` — delete a file or directory named ABCDE
+`HELP` — open the help file, F1 key
+`LOAD XXXX ABC*` — load file ABC* into RAM at address XXXX
+`SAVE XXXX YYYY ABC*` — save file ABC* from address XXXX with length YYYY
+`CALL ABC*` — load file ABC* into RAM and call it; key `L` enables compatibility mode
+`VIEW ABC*` — load text file ABC* into RAM and view it
+`SCP ABC*` — load and interpret script ABC*
 
-`PVAR` - вывод символа из переменной на экран<br/>
-`KEYSCAN` - Ожидание нажатия клавиши и вывод кода клавиши<br/>
-`IF A B` - сравнение переменной с A и выполнение команды B при условии совпадения<br/>
+`WBMP ABC*` — load and display an image named ABC*
 
-`I2CSTART AA` - выбрать устройство с адресом AA<br/>
-`I2CSTOP` - перевод линии передачи в режим ожидания<br/>
-`I2CTX AA BB CC DD...` - передача данных<br/>
-`I2CRX` - приём данных, ключ '!' - без подтверждения приёма<br/>
+`PVAR` — output the character from the variable to the screen
+`KEYSCAN` — wait for a key press and output the key code
+`IF A B` — compare the variable with A and execute command B if they match
 
-`MONITOR` - выход в управляющую программу Монитор<br/>
+`I2CSTART AA` — select a device with address AA
+`I2CSTOP` — switch the transmission line to idle mode
+`I2CTX AA BB CC DD...` — transmit data
+`I2CRX` — receive data; key `!` means receive without acknowledgement
 
-Клавиши: `Ф1` - помощь, `СТР` - очистка экрана, `HOME` - видеорежим без межстрочных интервалов, `стрелка вверх` - последняя команда, `стрелка вниз` - текущий путь
+`MONITOR` — exit to the Monitor control program
 
-## Особенности
+## Keys
 
-Если в сценарии перед командой стоит символ @, то эхо отключается.
+F1 — help
+СТР — clear screen
+HOME — video mode without line spacing
+Up arrow — previous command
+Down arrow — current path
 
-Команда OUT выдаёт данные в порт и одновременно выводит дамп этих данных. Выход порта PC7 эмулирует сигнал записи во внешнюю микросхему памяти. Команда разработана для прошивки микросхем типа AT28C64. Подключение микросхемы к порту:
+## Special features
 
-PA0 - PA7 → D0 - D7<br/>
-PB0 - PB7 → A0 - A7<br/>
-PC0 - PC4 → A8 - A12<br/>
-PC7 → /CE<br/>
-/OE → +5V<br/>
-/WE → GND<br/>
+If a command in a script is preceded by the `@` symbol, echo is disabled.
 
-## Программирование в среде ОС
+The `OUT` command outputs data to the port and simultaneously displays a dump of that data. The PC7 port output emulates the write signal for an external memory chip. The command was designed for programming chips such as the AT28C64.
 
-**Внешние программы могут выполнять команды ОС.** Для этого в регистровую пару HL нужно поместить адрес строки, в которой написана команда. Далее нужно сделать вызов CALL <Адрес размещения ОС> + 3, например для ЭВМ Радио-86РК:<br/>
+Chip connection to the port:
 
-*ORIGIN          equ $0000*<br/>
-*OS              equ $E000*<br/>
+```text
+PA0 - PA7 → D0 - D7
+PB0 - PB7 → A0 - A7
+PC0 - PC4 → A8 - A12
+PC7 → /CE
+/OE → +5V
+/WE → GND
+```
 
-*ORG ORIGIN*<br/>
+## Programming in the OS environment
 
-*LXI H, CMD_TITLE*<br/>
-*CALL OS + 3*<br/>
-*RET*<br/>
+External programs can execute OS commands. To do this, the HL register pair must contain the address of the string containing the command. Then call:
 
-*CMD_TITLE:      db 'TEXT 1000', $00;*<br/>
+```asm
+CALL <OS location address> + 3
+```
 
-*ORG $1000*<br/>
-*TXT_TITLE:      db 'HELLO WORLD!!!', $0A, $0D, $00*<br/>
+For example, for the Radio-86RK computer:
 
-Таким образом программы могут загружать файлы и выполнять иные операции.
+```asm
+ORIGIN equ $0000
+OS equ $E000
 
-**Для работы с текстами в системе предусмотрен шаблонизатор**. Данный механизм позволяет экономить длину строк, и делает вывод структурированных данных удобным. Текстовая строка всегда должна заканчиваться символом $00. Управляющие символы шаблонизатора:
+ORG ORIGIN
 
-`$09` - табуляция, 8 символов<br/>
-`$0A` - перевод строки<br/>
-`$0D` - возврат каретки<br/>
-`$80` - вывод следующего байта в формате HEX<br/>
-`$81` - вывод следующего слова в формате DEC<br/>
-`$DF` - ожидание нажатия клавиши<br/>
+LXI H, CMD_TITLE
+CALL OS + 3
+RET
 
-Следующие управляющие символы используются вместе с указателем на массив структурированных данных - POINTER. Такая конструкция называется шаблон.
+CMD_TITLE: db 'TEXT 1000', $00;
 
-`$F0-$FF` - вывод символа с позиции POINTER + смещение 0..F<br/>
-`$E0-EF` - вывод HEX значения байта с позиции POINTER + смещение 0..F<br/>
-`$DB` - вывод значения по адресу POINTER в BIN<br/>
-`$D8` - вывод POINTER в формате HEX<br/>
-`$D0-D7` - вывод DEC значения слова с позиции POINTER + смещение 0..8<br/>
+ORG $1000
+TXT_TITLE: db 'HELLO WORLD!!!', $0A, $0D, $00
+```
 
-Таким образом, шаблон для вывода каталога файлов будет выглядеть, как строка:
+Thus, programs can load files and perform other operations.
 
-*db $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7, " ", $F8, $F9, $FA, " ", $EB, " ", $ED, $EC, " ", $D7, $0A, $0D, $00*
+For working with text, the system includes a template engine. This mechanism allows reducing string length and makes output of structured data convenient. A text string must always end with the `$00` character.
 
-— где первые 12 байт выводят имя файла с расширением, далее атрибут файла (HEX), начальный кластер файла (HEX), длина файла (DEC) и конец строки.
+Template engine control characters:
 
-Чтобы вывести на экран следующую строку каталога файлов, достаточно переместить POINTER на нужную запись и снова вызвать вывод шаблона. Так можно делать вывод записей структурированной базы данных. Аналогично в ОС реализованы шаблоны вывода дампа и вывода длины загружаемых файлов.
+```text
+$09 — tabulation, 8 characters
+$0A — line feed
+$0D — carriage return
+$80 — output the next byte in HEX format
+$81 — output the next word in DEC format
+$DF — wait for a key press
+```
 
-**Для работы в сценариях есть одна единственная переменная**. В эту переменную записываются результаты операций READ, KEYSCAN и I2CRX. Оператор IF делает сравнение с этой переменной. Оператор PVAR выводит литерное значение переменной в командную строку, например это удобно после приёма данных оператором I2CRX, если нужно считать и отобразить строку текста из устройства.
+The following control characters are used together with the pointer to an array of structured data — `POINTER`. Such a construction is called a template.
+
+```text
+$F0-$FF — output a character from POINTER + offset 0..F
+$E0-$EF — output the HEX value of a byte from POINTER + offset 0..F
+$DB — output the value at address POINTER in BIN format
+$D8 — output POINTER in HEX format
+$D0-$D7 — output the DEC value of a word from POINTER + offset 0..8
+```
+
+Thus, a template for displaying a file directory will look like this string:
+
+```asm
+db $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7, " ", $F8, $F9, $FA, " ", $EB, " ", $ED, $EC, " ", $D7, $0A, $0D, $00
+```
+
+Here, the first 12 bytes output the filename with extension, followed by the file attribute in HEX, the initial file cluster in HEX, the file length in DEC, and the end of the line.
+
+To display the next file directory entry on the screen, it is enough to move `POINTER` to the required entry and call the template output again. This makes it possible to output records from a structured database. Similarly, the OS implements templates for dump output and for displaying the length of loaded files.
+
+For scripts, there is only one variable. The results of the `READ`, `KEYSCAN`, and `I2CRX` operations are written into this variable. The `IF` operator compares against this variable. The `PVAR` operator outputs the literal character value of the variable to the command line. For example, this is convenient after receiving data with the `I2CRX` operator when it is necessary to read and display a text string from a device.
