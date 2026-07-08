@@ -2,19 +2,18 @@ Fork of the original project by Dmitry Ivanov https://hub.mos.ru/dni-fx/peace-do
 
 # MIR Disk Operating System
 
-The operating system (OS) was developed for computers with the i8080 processor, such as Radio-86RK, Severnaya Palmira, Apogey, Mikrosha, Partner 01.01, and similar systems: KR580VM80A, i8085, Z80, and others. It fits into an 8 KB ROM. It provides a minimal command set for working with the CH376 file interface.
+The operating system (OS) was developed for computers with an i8080 processor, such as Radio-86RK, Severnaya Palmira, Apogey, Mikrosha, Partner 01.01, and similar systems: KR580VM80A, i8085, Z80, and others. It fits into an 8 KB ROM. It provides a minimal command set for working with the CH376 file interface.
 
 The system includes an interpreter and a template engine, supports script execution, emulates the I2C protocol in software through the i8255 parallel port (KR580VV55), allows viewing WBMP graphics up to 127×127 pixels, and supports working with files and directories.
 
 The CH376 file module is connected to the computer system bus according to the module pinout. The INT and RST pins do not need to be connected.
-In this repository you can find gerber files for the Adapter CH376 Adapter which can be purchased at JLCPCB or PCBWAY or every other PCB manufacturer.
 
 At startup, the OS detects whether the CH376 module and a storage medium are present. If the device is ready, the script `AUTOEXEC.SCP` will be loaded from the storage medium and executed. If the device is not ready or is absent, the script from ROM will be executed. In that case, disk operations will not be available.
 
 The operating system is written entirely in assembly language using Pretty Intel 8080 Assembler:
 https://svofski.github.io/pretty-8080-assembler/
 
-## Command list
+## Command List
 
 `CHKMEM` — memory test
 `SYSINFO` — display the system settings table
@@ -54,6 +53,8 @@ https://svofski.github.io/pretty-8080-assembler/
 `SCP ABC*` — load and interpret script ABC*
 
 `WBMP ABC*` — load and display an image named ABC*
+`PLAY ABC*` — play a melody from a file named ABC*
+`PWM 0..3F` — control PWM on the VI53 at 27.7 kHz
 
 `PVAR` — output the character from the variable to the screen
 `KEYSCAN` — wait for a key press and output the key code
@@ -66,15 +67,9 @@ https://svofski.github.io/pretty-8080-assembler/
 
 `MONITOR` — exit to the Monitor control program
 
-## Keys
+Keys: `F1` — help, `СТР` — clear screen, `HOME` — video mode without line spacing, `up arrow` — previous command, `down arrow` — current path.
 
-F1 — help
-СТР — clear screen
-HOME — video mode without line spacing
-Up arrow — previous command
-Down arrow — current path
-
-## Special features
+## Special Features
 
 If a command in a script is preceded by the `@` symbol, echo is disabled.
 
@@ -91,9 +86,25 @@ PC7 → /CE
 /WE → GND
 ```
 
-## Programming in the OS environment
+For music playback, a circuit based on the KR580VI53 timer is used. This circuit makes it possible to control the amplitude and additionally provides one PWM channel:
 
-External programs can execute OS commands. To do this, the HL register pair must contain the address of the string containing the command. Then call:
+![Synthesizer on the KR580VI53 timer](https://hub.mos.ru/dni-fx/peace-dos/-/raw/6dda952cd4270458a1377d97de80d641699353e8/PWM53.jpg)
+
+The file containing music has a very simple format. The first byte in the file sets the note amplitude decay speed, `$01-$3F`. The following byte pairs indicate the duration of the note in frames and the note number.
+
+A total of 5 octaves are available. The note C of octave zero has index 0. Value `$FE` is a pause. Value `$FF` is the mandatory end-of-melody marker.
+
+Music files are stored with the `.MUS` extension.
+
+The I2C protocol is implemented by bit-banging through the VV55 parallel port. In order for the OS to work with the I2C protocol, an interface module must be added to the computer circuit:
+
+![I2C protocol for i8080](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/86RK_I2C.jpg)
+
+The pull-up resistor value may be reduced to 4.7 kΩ.
+
+## Programming in the OS Environment
+
+**External programs can execute OS commands.** To do this, the HL register pair must contain the address of the string containing the command. Then call:
 
 ```asm
 CALL <OS location address> + 3
@@ -119,7 +130,7 @@ TXT_TITLE: db 'HELLO WORLD!!!', $0A, $0D, $00
 
 Thus, programs can load files and perform other operations.
 
-For working with text, the system includes a template engine. This mechanism allows reducing string length and makes output of structured data convenient. A text string must always end with the `$00` character.
+**For working with text, the system includes a template engine.** This mechanism allows reducing string length and makes output of structured data convenient. A text string must always end with the `$00` character.
 
 Template engine control characters:
 
@@ -152,4 +163,8 @@ Here, the first 12 bytes output the filename with extension, followed by the fil
 
 To display the next file directory entry on the screen, it is enough to move `POINTER` to the required entry and call the template output again. This makes it possible to output records from a structured database. Similarly, the OS implements templates for dump output and for displaying the length of loaded files.
 
-For scripts, there is only one variable. The results of the `READ`, `KEYSCAN`, and `I2CRX` operations are written into this variable. The `IF` operator compares against this variable. The `PVAR` operator outputs the literal character value of the variable to the command line. For example, this is convenient after receiving data with the `I2CRX` operator when it is necessary to read and display a text string from a device.
+**For scripts, there is only one variable.** The results of the `READ`, `KEYSCAN`, and `I2CRX` operations are written into this variable. The `IF` operator compares against this variable.
+
+The `PVAR` operator outputs the literal character value of the variable to the command line. For example, this is convenient after receiving data with the `I2CRX` operator when it is necessary to read and display a text string from a device.
+
+**Simple background tasks are executed during keyboard polling.** If no keyboard keys are pressed, a `CALL` is made to the address `VECTOR`. At this address, you can place a `JMP` directive and transfer control to your own handler.
