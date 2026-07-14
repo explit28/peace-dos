@@ -15,7 +15,7 @@ The operating system (OS) was developed for computers based on the i8080 process
 The system includes an interpreter and a template engine, supports script execution, emulates the I2C protocol in software through the i8255 (KR580VV55) parallel port, displays WBMP graphics up to 127 × 127 pixels, and supports file and directory operations.
 
 The CH376 file module is connected to the computer's system bus according to the module pinout. The `INT` and `RST` pins do not need to be connected.
-Pinout and Gerber files are avaiable thru this repository: https://github.com/explit28/Radio-86RK_CH376-Adapter
+Pinout and Gerber files are avaiable in this repository: https://github.com/explit28/Radio-86RK_CH376-Adapter
 
 At startup, the OS checks whether the CH376 module and a storage medium are present. If the device is ready, `AUTOEXEC.SCP` is loaded from the storage medium and executed. If the device is absent or not ready, the script stored in ROM is executed instead. Disk operations are unavailable in that mode.
 
