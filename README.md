@@ -1,4 +1,4 @@
-# MIR Disk Operating System / Дисковая операционная система `МИР`
+# MIR Disk Operating System / Дисковая операционная система `МИР`- (PeaceDOS)
 
 [English manual](#english-manual) · [Русское руководство](#русское-руководство)
 
