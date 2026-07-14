@@ -19,6 +19,8 @@ Pinout and Gerber files are avaiable in this repository: https://github.com/expl
 
 At startup, the OS checks whether the CH376 module and a storage medium are present. If the device is ready, `AUTOEXEC.SCP` is loaded from the storage medium and executed. If the device is absent or not ready, the script stored in ROM is executed instead. Disk operations are unavailable in that mode.
 
+Two versions of the startup script are provided: `AUTOEXEC.SCP.EN` contains English messages, while `AUTOEXEC.SCP.RU` contains Russian messages. Copy the preferred version to the root directory of the USB stick and rename the copied file to `AUTOEXEC.SCP`.
+
 The operating system is written entirely in assembly language using [Pretty Intel 8080 Assembler](https://svofski.github.io/pretty-8080-assembler/).
 
 ## Command List
@@ -207,6 +209,8 @@ Pinout and герберы находятся в этом репозитории:
 
 
 При запуске ОС определит наличие модуля CH376 и носителя информации в нём. Если устройство готово к работе, с носителя информации будет загружен и выполнен сценарий AUTOEXEC.SCP. Если устройство не готово к работе или отсутствует, будет выполнен сценарий из ПЗУ. В этом случае дисковые операции будут недоступны.
+
+Предусмотрены две версии стартового сценария: `AUTOEXEC.SCP.EN` содержит сообщения на английском языке, а `AUTOEXEC.SCP.RU` — на русском. Скопируйте выбранную версию в корневой каталог USB-накопителя и переименуйте скопированный файл в `AUTOEXEC.SCP`.
 
 Операционная система полность написана на ассемблере в среде Прекрасный Ассемблер (Pretty Intel 8080 Assembler): https://svofski.github.io/pretty-8080-assembler/
 
