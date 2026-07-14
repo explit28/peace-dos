@@ -1,0 +1,13 @@
+@CHKMEM
+@SYSINFO
+ENTER - exit to monitor
+@NL
+F1 - load 256 bytes via PPA (R,FF)
+F5 - load operating system
+@KEYSCAN
+@DELAY 10
+@IF 0D MONITOR
+@IF 00 IN 0 0 FF
+@IF 00 JUMP 0
+@CLS
+@WBMP LOGO.WBM
