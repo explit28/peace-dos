@@ -15,7 +15,7 @@ The operating system (OS) was developed for computers based on the i8080 process
 The system includes an interpreter and a template engine, supports script execution, emulates the I2C protocol in software through the i8255 (KR580VV55) parallel port, displays WBMP graphics up to 127 × 127 pixels, and supports file and directory operations.
 
 The CH376 file module is connected to the computer's system bus according to the module pinout. The `INT` and `RST` pins do not need to be connected.
-Pinout and Gerber files are avaiable in this repository: https://github.com/explit28/Radio-86RK_CH376-Adapter
+Pinout and Gerber files are avaiable in this repository:<br> https://github.com/explit28/Radio-86RK_CH376-Adapter
 
 At startup, the OS checks whether the CH376 module and a storage medium are present. If the device is ready, `AUTOEXEC.SCP` is loaded from the storage medium and executed. If the device is absent or not ready, the script stored in ROM is executed instead. Disk operations are unavailable in that mode.
 
@@ -205,7 +205,7 @@ Simple background tasks are executed while the keyboard is being polled. If no k
 Система имеет интерпретатор, шаблонизатор, поддерживает выполнение сценариев, программно эмулирует протокол I2C через параллельный порт i8255 (КР580ВВ55), позволяет просматривать графику формата WBMP в размере до 127х127 пикселей, поддерживает работу с файлами и каталогами.<br>
 
 Файловый модуль CH376 подключается в системную шину ЭВМ согласно распиновки модуля. Выводы INT и RST подключать не нужно.<br>
-Pinout and герберы находятся в этом репозитории: https://github.com/explit28/Radio-86RK_CH376-Adapter
+Pinout and герберы находятся в этом репозитории:<br> https://github.com/explit28/Radio-86RK_CH376-Adapter
 
 
 При запуске ОС определит наличие модуля CH376 и носителя информации в нём. Если устройство готово к работе, с носителя информации будет загружен и выполнен сценарий AUTOEXEC.SCP. Если устройство не готово к работе или отсутствует, будет выполнен сценарий из ПЗУ. В этом случае дисковые операции будут недоступны.
