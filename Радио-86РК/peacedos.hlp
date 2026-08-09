@@ -1,0 +1,157 @@
+            fajlowaq sistema
+              protokol I2C
+              wypolnenie scenariew
+               programmator
+         
+
+
+> HELP
+wywod fajla sprawki (|tot dokument)
+
+> CHKMEM
+prowerka pamqti
+
+> SYSINFO
+wywod tablicy sistemnyh nastroek
+
+> CLS
+o~istka |krana
+
+> FLUSH N
+skroll teksta wwerh na N strok
+
+> CARRIAGE YYXX
+ustanowka karetki
+
+ß
+> TEXT XXXX
+pe~atx stroki s adresa XXXX 
+
+> NL
+perewod karetki 
+
+> XCG
+perekl`~enie znakogoneratora 
+
+> POINTER XXXX
+ustanowka ukazatelq na stroku po adresu XXXX
+
+> LEDON
+wkl`~itx swetodiod rus/lat
+
+> LEDOFF
+wykl`~itx swetodiod rus/lat
+
+> BEEP NNMM
+zwukowoj signal, gde NN - dlitelxnostx, MM - ton 
+
+> PEW NNMM
+zwukowoj signal, gde NN - dlitelxnostx, MM - ton
+
+
+ß
+> DELAY A
+zadervka na A kadrow 
+
+> JUMP XXXX
+bezuslownyj perehod na adres XXXX
+kl`~ 'L' - revim sowmestimosti
+
+> READ XXXX
+~tenie bajta iz q~ejki pamqti XXXX i wywod na |kran 
+
+> WRITE XXXX AA BB CC ... zapisx massiwa dannyh
+w ozu s adresa XXXX
+
+> IN XXXX YYYY ZZZZ
+~tenie dannyh iz porta w ozu s adresa XXXX
+adresa na portu s YYYY po ZZZZ
+
+> OUT XXXX YYYY ZZZZ
+wywod dannyh w port iz ozu s adresa XXXX po YYYY na PB i PC
+wywoditsq adres na~inaq s ZZZZ
+
+> DUMP AAAA BBBB
+prosmotr pamqti s adresa AAAA po adres BBBB
+
+
+ß
+> /
+ustanowka teku}ego puti
+
+> CAT
+katalog fajlow kornewoj direktorii
+
+> MCAT ABCDE
+sozdanie kataloga s imenem ABCDE 
+
+> ERASE ABCDE
+udalenie fajla ili kataloga kataloga s imenem ABCDE
+
+> LOAD XXXX ABC*
+zagruzka fajla ABC* w ozu s adresa XXXX
+
+> SAVE XXXX YYYY ABC*
+sohranenie fajla ABC* s adresa XXXX i dlinoj YYYY
+
+> CALL ABC*
+zagruzka fajla ABC* w ozu i wyzow
+l`~ 'L' - revim sowmestimosti
+
+> VIEW ABC*
+zagruzka tekstowogo fajla ABC* w ozu i prosmotr 
+
+ß
+> SCP ABC
+zagruzka i interpretaciq scenariq ABC*
+
+> WBMP ABC*
+zagruzka i otobravenie kartinki s imenem ABC* 
+
+> VAR X
+zapisx zna~eniq X w peremennu` 
+
+> MVAR X
+logi~eskoe i s X (maskirowanie) 
+
+> IVAR
+~tenie HEX parametra komandnoj stroki i zapisx w peremennu 
+
+> CVAR
+~tenie simwolxnogo parametra komandnoj stroki i 
+zapisx w peremennu`
+
+> KEYSCAN
+ovidanie navatiq klawi{i i wywod koda klawi{i 
+
+> IF A B
+srawnenie peremennoj s A i wypolnenie komandy B
+pri uslowii sowpadeniq
+ß
+> I2CSTART AA
+wybratx ustrojstwo s adresom AA
+
+> I2CSTOP
+perewod linii pereda~i w revim ovidaniq 
+
+> I2CTX AA BB CC DD...
+pereda~a dannyh 
+
+> I2CRX
+priem dannyh, kl`~ '!' - bez podtwervdeniq priema 
+
+> TASK XXXX
+wypolnenie zada~i po adresu XXXX wo wremq prostoq 
+
+> MONITOR
+wyhod w uprawlq`}u` programmu monitor
+ß
+*********************************
+* awtor sistemy: iwanow dmitrij *
+*                               *
+* u~astwowali w razrabotke:     *
+*                               *
+* wiktor pyhonin                *
+* ruslan alikberow              *
+* maksim pa{kewi~               *
+*********************************

@@ -10,7 +10,7 @@ PC7 ............. \CE
 \OE ............. +5V
 \WE ............. GND
 
-navmite l`bu` klawi{u dlx starta pro{iwki 8kb...
+navmite l`bu` klawi{u dlq starta pro{iwki 8kb...
 
 @KEYSCAN
 OUT 1000 3000 0000
