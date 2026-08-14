@@ -16,7 +16,6 @@ At startup, the OS checks for the presence of the CH376 module and storage media
 
 The operating system is written entirely in assembly language using Pretty Intel 8080 Assembler: https://svofski.github.io/pretty-8080-assembler/
 
-![Peace.DOS / МИР Disk Operating System](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/splash.jpg)
 
 ## Command list
 
@@ -150,7 +149,6 @@ To display the next line of the file directory, simply move `POINTER` to the req
 
 **Simple background tasks are executed while the keyboard is being polled.** If no keyboard key is pressed, a `CALL` is made to the address specified by the `TASK` command.
 
-![Programming in the МИР OS environment](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/love.jpg)
 
 ---
 
@@ -166,7 +164,6 @@ To display the next line of the file directory, simply move `POINTER` to the req
 
 Операционная система полность написана на ассемблере в среде Прекрасный Ассемблер (Pretty Intel 8080 Assembler): https://svofski.github.io/pretty-8080-assembler/
 
-![Дисковая операционная система МИР](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/splash.jpg)
 
 ## Список команд:
 
