@@ -1,4 +1,6 @@
 # Peace.DOS — Disk Operating System `МИР`
+Created by Dmitriy Ivanov 
+Fork of the original Project: https://hub.mos.ru/dni-fx/peace-dos
 
 [English](#english) | [Русский](#русский)
 
