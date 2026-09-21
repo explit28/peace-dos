@@ -12,8 +12,6 @@ A compact disk operating system (OS) designed for Soviet and Russian retro compu
 
 The system is written entirely in assembly language using [Pretty Intel 8080 Assembler](https://svofski.github.io/pretty-8080-assembler/). The entire OS code is optimized to fit into an **8 KB ROM**.
 
-![Peace.DOS / МИР Disk Operating System](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/splash.jpg)
-
 ## 📌 Main features
 * **Supported platforms:** Radio-86RK, Severnaya Palmira, Apogey, Mikrosha, Partner 01.01, and compatible systems.
 * **File interface:** File and directory operations through the popular **CH376** controller.
@@ -195,8 +193,6 @@ dir_item_tpl: db $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7, " ", $F8, $F9, $FA, " "
 
 To iterate through entries (for example, database records or files), simply change `POINTER` to the next structure and send the template for output again.
 
-![Programming in the МИР OS environment](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/love.jpg)
-
 ---
 
 ## Русский
@@ -206,8 +202,6 @@ To iterate through entries (for example, database records or files), simply chan
 Компактная дисковая операционная система (ОС), разработанная для отечественных ретро-ЭВМ на базе процессора **i8080 / КР580ВМ80А** и совместимых с ними (i8085, Z80). 
 
 Система полностью написана на ассемблере в среде [Прекрасный Ассемблер (Pretty Intel 8080 Assembler)](https://svofski.github.io/pretty-8080-assembler/). Весь код ОС оптимизирован и помещается в **ПЗУ объёмом 8 КБ**.
-
-![Дисковая операционная система МИР](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/splash.jpg)
 
 ## 📌 Основные возможности
 * **Поддерживаемые платформы:** Радио-86РК, Северная Пальмира, Апогей, Микроша, Партнёр 01.01 и аналоги.
@@ -383,5 +377,3 @@ dir_item_tpl: db $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7, " ", $F8, $F9, $FA, " "
 ```
 
 Для перебора элементов (базы данных или списка файлов) достаточно изменять значение `POINTER` на следующую структуру и заново отправлять шаблон на печать.
-
-![Программирование в среде ОС МИР](https://hub.mos.ru/dni-fx/peace-dos/-/raw/main/love.jpg)
