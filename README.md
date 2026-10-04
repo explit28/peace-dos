@@ -1,12 +1,14 @@
 # Peace.DOS — Disk Operating System `МИР`
 
-This project is a fork of the original Peace.DOS / МИР created by Dmitri Ivanov.
-Original repository: hub.mos.ru/dni-fx/peace-dos
+> **This project is a fork of the original Peace.DOS / МИР created by Dmitri Ivanov.**  
+> Original repository: [hub.mos.ru/dni-fx/peace-dos](https://hub.mos.ru/dni-fx/peace-dos)
 
-Этот проект является форком оригинальной Peace.DOS / МИР, созданной Дмитрием Ивановым.
-Оригинальный репозиторий: hub.mos.ru/dni-fx/peace-dos
+> **Этот проект является форком оригинальной Peace.DOS / МИР, созданной Дмитрием Ивановым.**  
+> Оригинальный репозиторий: [hub.mos.ru/dni-fx/peace-dos](https://hub.mos.ru/dni-fx/peace-dos)
 
 [English](#english) | [Русский](#русский)
+
+---
 
 ---
 
